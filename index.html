@@ -1,310 +1,491 @@
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Privacy Policy - Developer Console</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | FlowZint Connect</title>
+    <meta name="description" content="Privacy Policy for FlowZint Connect - CRM, Sales Partner Management, and Business Automation application.">
     
-    <!-- Theme Check -->
-    <script>
-        if (localStorage.getItem('flowzint_theme') === 'dark') {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    </script>
-    
-    <!-- External Libraries -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Tailwind Configuration (Enterprise Wide Pro Look) -->
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind Configuration -->
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                     },
                     colors: {
-                        brand: { blue: '#0067b8', blueHover: '#005da6' }, // Microsoft-style blue
-                        dark: { bg: '#111111', surface: '#1e1e1e', border: '#333333' }
+                        brand: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6', // Primary Purple
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                            950: '#2e1065',
+                        }
                     },
                     animation: {
-                        'fade-in': 'fadeIn 0.3s ease-out forwards',
-                        'spin-slow': 'spin 2s linear infinite',
+                        'blob': 'blob 7s infinite',
+                        'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
                     },
                     keyframes: {
-                        fadeIn: { '0%': { opacity: '0', transform: 'translateY(10px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
                     }
                 }
             }
         }
     </script>
 
+    <!-- Custom CSS for specialized elements -->
     <style>
-        * { -webkit-tap-highlight-color: transparent; outline: none; }
-        body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
-        
-        /* Enterprise Floating Input */
-        .pro-input-container { position: relative; transition: all 0.2s ease; }
-        .pro-input {
-            width: 100%; padding: 1.25rem 1rem 0.5rem 1rem;
-            background: transparent; border: 1px solid #d1d5db; border-radius: 4px;
-            font-size: 15px; color: #111827; transition: all 0.2s;
-        }
-        html.dark .pro-input { border-color: #4b5563; color: #f9fafb; }
-        
-        .pro-label {
-            position: absolute; left: 1rem; top: 50%; transform: translateY(-50%);
-            font-size: 15px; color: #6b7280; pointer-events: none; transition: all 0.2s ease;
+        body {
+            background-color: #f8fafc; /* light slate background */
+            color: #334155; /* slate-700 */
         }
         
-        /* Focus & Value States */
-        .pro-input-container:focus-within .pro-label,
-        .pro-input-container.has-value .pro-label {
-            top: 0.5rem; transform: translateY(0); font-size: 11px; font-weight: 600;
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-        .pro-input-container:focus-within .pro-label { color: #0067b8; }
-        html.dark .pro-input-container:focus-within .pro-label { color: #60a5fa; }
-        
-        .pro-input:focus { border-color: #0067b8; box-shadow: inset 0 0 0 1px #0067b8; }
-        html.dark .pro-input:focus { border-color: #60a5fa; box-shadow: inset 0 0 0 1px #60a5fa; }
-        
-        /* Error States */
-        .pro-input-container.error .pro-input { border-color: #dc2626; box-shadow: inset 0 0 0 1px #dc2626; }
-        .pro-input-container.error .pro-label { color: #dc2626 !important; }
-        
-        .action-bar-glass {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid #e5e7eb;
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9; 
         }
-        html.dark .action-bar-glass {
-            background: rgba(30, 30, 30, 0.95);
-            border-top: 1px solid #333333;
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .glass-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            transition: box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out;
+        }
+        
+        .glass-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+        }
+
+        /* Sidebar active link styling */
+        .toc-link.active {
+            color: #7c3aed; /* brand-600 */
+            font-weight: 600;
+            border-left-color: #8b5cf6;
+            background-color: #f5f3ff;
         }
     </style>
 </head>
-<body class="bg-[#faf9f8] dark:bg-dark-bg text-gray-900 dark:text-gray-100 flex flex-col min-h-screen transition-colors duration-300">
+<body class="antialiased selection:bg-brand-100 selection:text-brand-900 font-sans overflow-x-hidden">
 
-    <!-- WIDE PRO HEADER -->
-    <header class="h-14 bg-white dark:bg-dark-surface border-b border-gray-200 dark:border-dark-border flex items-center justify-between px-4 lg:px-6 w-full sticky top-0 z-50">
-        <div class="flex items-center gap-4">
-            <!-- App Logo (Replaced text with logo.png) -->
-            <img src="logo.png" alt="Developer Console" class="h-6 w-auto object-contain onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0xMiAyTDExIDEwbS04IDRsMjEgMm0tOS04djE0Ii8+PC9zdmc+'" />
-            <div class="h-5 w-px bg-gray-300 dark:bg-gray-700 hidden sm:block"></div>
-            <span class="font-semibold text-[15px] hidden sm:block tracking-tight text-gray-800 dark:text-gray-200">Developer Console</span>
+    <!-- Background Ambient Glow (Light mode subtle blobs) -->
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-brand-200/30 blur-[100px] mix-blend-multiply animate-blob"></div>
+        <div class="absolute top-[20%] right-[-10%] w-[30%] h-[40%] rounded-full bg-blue-200/30 blur-[100px] mix-blend-multiply animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-[-20%] left-[20%] w-[50%] h-[50%] rounded-full bg-purple-200/30 blur-[100px] mix-blend-multiply animate-blob animation-delay-4000"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <img src="logo.png" alt="FlowZint Connect" class="h-10 w-auto object-contain">
+            </div>
+            <div class="flex items-center gap-6">
+                <div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-100 border border-gray-200 text-xs font-medium text-gray-600">
+                    <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                    Updated: May 2026
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="pt-40 pb-20 px-6 max-w-7xl mx-auto opacity-0 animate-fade-in-up">
+        <div class="max-w-3xl">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/60 backdrop-blur-sm border border-brand-200 text-brand-600 text-sm font-medium mb-6 shadow-sm">
+                <i data-lucide="shield-check" class="w-4 h-4"></i> Enterprise-Grade Security
+            </div>
+            <h1 class="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold tracking-tight mb-6 text-slate-900 leading-[1.1] py-1">
+                Privacy Policy
+            </h1>
+            <p class="text-xl text-gray-600 leading-relaxed mb-12">
+                At FlowZint, your privacy is paramount. This document details how FlowZint Connect manages your data for CRM, Sales Partner Management, and Lead Tracking while ensuring highest security standards.
+            </p>
         </div>
 
-        <div class="flex items-center gap-2 sm:gap-4">
-            <button onclick="toggleTheme()" class="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 transition-colors" title="Toggle Theme">
-                <i data-lucide="moon" class="w-4 h-4"></i>
-            </button>
-            <button class="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 transition-colors" title="Notifications">
-                <i data-lucide="bell" class="w-4 h-4"></i>
-            </button>
-            
-            <div class="ml-2 flex items-center gap-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 p-1.5 rounded transition-colors">
-                <div class="w-7 h-7 rounded-full bg-brand-blue flex items-center justify-center text-white text-xs font-bold shadow-sm">
-                    FZ
+        <!-- Quick Summary Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+            <div class="glass-card rounded-2xl p-6 hover:border-brand-300 transition-colors">
+                <div class="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center mb-4 border border-red-100">
+                    <i data-lucide="ban" class="w-6 h-6 text-red-600"></i>
                 </div>
+                <h3 class="text-gray-900 font-semibold mb-2">Never Sold</h3>
+                <p class="text-sm text-gray-600">Your personal and business data is strictly confidential and never sold to third parties.</p>
+            </div>
+            <div class="glass-card rounded-2xl p-6 hover:border-brand-300 transition-colors">
+                <div class="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center mb-4 border border-blue-100">
+                    <i data-lucide="credit-card" class="w-6 h-6 text-blue-600"></i>
+                </div>
+                <h3 class="text-gray-900 font-semibold mb-2">No Financial Data</h3>
+                <p class="text-sm text-gray-600">We do not store any personal financial information on our application servers.</p>
+            </div>
+            <div class="glass-card rounded-2xl p-6 hover:border-brand-300 transition-colors">
+                <div class="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center mb-4 border border-green-100">
+                    <i data-lucide="lock" class="w-6 h-6 text-green-600"></i>
+                </div>
+                <h3 class="text-gray-900 font-semibold mb-2">Encrypted Storage</h3>
+                <p class="text-sm text-gray-600">All data is protected within our highly secure, enterprise-grade cloud infrastructure.</p>
             </div>
         </div>
     </header>
 
-    <!-- WIDE MAIN CONTENT CONTAINER -->
-    <main class="flex-1 w-full max-w-[1200px] mx-auto px-4 sm:px-8 lg:px-12 py-8 lg:py-12 pb-32">
+    <!-- Main Content Layout -->
+    <div class="max-w-7xl mx-auto px-6 pb-32 flex flex-col lg:flex-row gap-12 relative opacity-0 animate-fade-in-up" style="animation-delay: 0.2s;">
         
-        <!-- Breadcrumb & Page Header -->
-        <div class="mb-10 animate-fade-in">
-            <a href="#" class="inline-flex items-center text-[13px] font-semibold text-gray-500 hover:text-brand-blue dark:hover:text-blue-400 transition-colors mb-3 group">
-                <i data-lucide="arrow-left" class="w-4 h-4 mr-1.5 group-hover:-translate-x-1 transition-transform"></i>
-                Dashboard
-            </a>
-            <h1 class="text-3xl sm:text-4xl font-semibold text-gray-900 dark:text-white tracking-tight">Privacy Policy</h1>
-        </div>
+        <!-- Sidebar Navigation (Desktop) -->
+        <aside class="hidden lg:block w-72 shrink-0">
+            <div class="sticky top-32 glass-card rounded-2xl p-4 border-gray-200">
+                <h4 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4 px-3">Contents</h4>
+                <nav class="flex flex-col space-y-1 text-sm" id="toc">
+                    <a href="#introduction" class="toc-link block py-2.5 px-3 rounded-r-lg border-l-2 border-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors">1. Introduction</a>
+                    <a href="#information-we-collect" class="toc-link block py-2.5 px-3 rounded-r-lg border-l-2 border-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors">2. Information We Collect</a>
+                    <a href="#location-access" class="toc-link block py-2.5 px-3 rounded-r-lg border-l-2 border-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors">3. Location Access Usage</a>
+                    <a href="#device-permissions" class="toc-link block py-2.5 px-3 rounded-r-lg border-l-2 border-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors">4. Device & App Permissions</a>
+                    <a href="#data-storage" class="toc-link block py-2.5 px-3 rounded-r-lg border-l-2 border-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors">5. Data Storage & Security</a>
+                    <a href="#how-we-use" class="toc-link block py-2.5 px-3 rounded-r-lg border-l-2 border-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors">6. How We Use Information</a>
+                    <a href="#user-rights" class="toc-link block py-2.5 px-3 rounded-r-lg border-l-2 border-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors">7. User Rights & Data Control</a>
+                    <a href="#third-party" class="toc-link block py-2.5 px-3 rounded-r-lg border-l-2 border-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors">8. Third Party Services</a>
+                    <a href="#cookies" class="toc-link block py-2.5 px-3 rounded-r-lg border-l-2 border-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors">9. Cookies & Analytics</a>
+                    <a href="#data-protection" class="toc-link block py-2.5 px-3 rounded-r-lg border-l-2 border-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors">10. Data Protection</a>
+                    <a href="#contact" class="toc-link block py-2.5 px-3 rounded-r-lg border-l-2 border-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors">11. Contact Information</a>
+                    <a href="#policy-updates" class="toc-link block py-2.5 px-3 rounded-r-lg border-l-2 border-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors">12. Policy Updates</a>
+                    <a href="#legal" class="toc-link block py-2.5 px-3 rounded-r-lg border-l-2 border-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors">13. Legal Compliance</a>
+                </nav>
+            </div>
+        </aside>
 
-        <!-- Enterprise Content Area -->
-        <div class="animate-fade-in" style="animation-delay: 0.1s;">
+        <!-- Main Content Area -->
+        <main class="flex-1 prose prose-slate max-w-none">
             
-            <!-- Policy Description Text -->
-            <div class="max-w-4xl text-[14px] text-gray-600 dark:text-gray-300 leading-relaxed space-y-6">
-                <p>
-                    Add a privacy policy to your store listing to help provide transparency about how you treat sensitive user and device data. 
-                    <a href="#" class="text-brand-blue hover:text-brand-blueHover dark:text-blue-400 dark:hover:text-blue-300 font-medium inline-flex items-center gap-1 transition-colors">
-                        Learn more <i data-lucide="external-link" class="w-3.5 h-3.5 mt-0.5"></i>
-                    </a>
-                </p>
-                
-                <!-- Notice Callout -->
-                <p class="text-gray-900 dark:text-gray-100 font-medium">
-                    You must add a privacy policy if your target audience includes children under 13. 
-                    Check the <a href="#" class="text-brand-blue hover:underline">User Data policy</a> to avoid common violations.
-                </p>
-            </div>
-
-            <!-- Form Section -->
-            <div class="mt-10 max-w-2xl">
-                <!-- Floating Label Input Container -->
-                <div id="url-container" class="pro-input-container">
-                    <input 
-                        type="text" 
-                        id="privacy-url" 
-                        oninput="handleInput()"
-                        class="pro-input"
-                    >
-                    <label for="privacy-url" class="pro-label">
-                        Privacy policy URL
-                    </label>
-                </div>
-                
-                <!-- Validation / Helper Message -->
-                <div class="mt-2 ml-1 flex items-start gap-2 h-6">
-                    <div id="error-msg" class="hidden items-center gap-1.5 text-[12px] font-medium text-red-600 dark:text-red-400">
-                        <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i>
-                        <span>Please enter a valid URL (e.g., https://example.com/privacy)</span>
+            <!-- Section 1 -->
+            <section id="introduction" class="scroll-mt-32 mb-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center border border-gray-200">
+                        <i data-lucide="info" class="w-4 h-4 text-brand-600"></i>
                     </div>
-                    <div id="helper-msg" class="text-[12px] text-gray-500 dark:text-gray-400">
-                        Enter a URL, for example https://example.com/privacy
+                    <h2 class="text-2xl font-bold text-gray-900 m-0 tracking-tight">1. Introduction</h2>
+                </div>
+                <div class="glass-card rounded-2xl p-8 text-gray-600 leading-relaxed">
+                    <p class="mt-0">Welcome to FlowZint Connect, a premium enterprise application developed by FlowZint. This Privacy Policy governs your use of the FlowZint Connect mobile application, designed for CRM, Sales Partner Management, Business Automation, and Lead Tracking.</p>
+                    <p>We are committed to respecting your privacy and protecting your personal data. This document outlines our practices regarding data collection, usage, and safeguarding, ensuring full transparency in how we operate our services.</p>
+                </div>
+            </section>
+
+            <!-- Section 2 -->
+            <section id="information-we-collect" class="scroll-mt-32 mb-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center border border-gray-200">
+                        <i data-lucide="database" class="w-4 h-4 text-brand-600"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900 m-0 tracking-tight">2. Information We Collect</h2>
+                </div>
+                <div class="glass-card rounded-2xl p-8 text-gray-600 leading-relaxed">
+                    <p class="mt-0">To provide enterprise-grade automation and CRM services, we collect specific categories of information:</p>
+                    <ul class="space-y-3 mt-4 marker:text-brand-500">
+                        <li><strong class="text-gray-900">Account Information:</strong> Name, professional email address, phone number, and corporate credentials required for secure login.</li>
+                        <li><strong class="text-gray-900">Business Data:</strong> Information related to leads, sales partners, and business operations inputted manually by users to utilize the CRM functionalities.</li>
+                        <li><strong class="text-gray-900">Device Information:</strong> Technical data such as device model, OS version, and unique device identifiers necessary for app optimization and bug tracking.</li>
+                        <li><strong class="text-gray-900">Usage Logs:</strong> Interaction data within the app to improve user experience and system performance.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section 3: CRUCIAL REQUIREMENT -->
+            <section id="location-access" class="scroll-mt-32 mb-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-8 rounded-lg bg-brand-50 flex items-center justify-center border border-brand-200">
+                        <i data-lucide="map-pin" class="w-4 h-4 text-brand-600"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900 m-0 tracking-tight">3. Location Access Usage</h2>
+                </div>
+                <div class="glass-card rounded-2xl p-8 border-brand-200 bg-brand-50 text-gray-700 leading-relaxed relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-200/50 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
+                    <p class="mt-0 font-semibold text-gray-900 mb-2">Explicit Purpose of Location Data</p>
+                    <p>FlowZint Connect requests access to your device's location services. <strong class="text-brand-700">This location permission is used strictly and exclusively for lead/store verification purposes.</strong></p>
+                    <p>When our sales partners or field agents check in at a specific lead location or business store, location data ensures the authenticity of the visit, vital for accurate CRM tracking. Location data is not continuously tracked in the background outside of explicit check-in/verification actions.</p>
+                </div>
+            </section>
+
+            <!-- Section 4: CRUCIAL REQUIREMENT -->
+            <section id="device-permissions" class="scroll-mt-32 mb-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center border border-gray-200">
+                        <i data-lucide="camera" class="w-4 h-4 text-brand-600"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900 m-0 tracking-tight">4. Device & App Permissions</h2>
+                </div>
+                <div class="glass-card rounded-2xl p-8 text-gray-600 leading-relaxed">
+                    <p class="mt-0">Beyond standard network access, FlowZint Connect may request specific hardware permissions to enable core features:</p>
+                    <div class="mt-4 p-5 rounded-xl bg-gray-50 border border-gray-200">
+                        <div class="flex items-start gap-4">
+                            <i data-lucide="camera" class="w-5 h-5 text-gray-500 mt-1 shrink-0"></i>
+                            <div>
+                                <strong class="text-gray-900 block mb-1">Camera & Media Access</strong>
+                                <p class="text-sm m-0 leading-relaxed"><strong class="text-gray-800">Camera permission is entirely optional.</strong> It is requested solely to allow users to capture and upload images of business storefronts, documents, or lead-related visuals directly into the CRM. Media access is required if selecting existing photos for the same business purpose.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
-        </div>
-    </main>
+            <!-- Section 5: CRUCIAL REQUIREMENT -->
+            <section id="data-storage" class="scroll-mt-32 mb-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center border border-gray-200">
+                        <i data-lucide="server" class="w-4 h-4 text-brand-600"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900 m-0 tracking-tight">5. Data Storage & Security</h2>
+                </div>
+                <div class="glass-card rounded-2xl p-8 text-gray-600 leading-relaxed">
+                    <p class="mt-0">We employ state-of-the-art security measures to protect your information.</p>
+                    <ul class="space-y-3 mt-4 marker:text-brand-500">
+                        <li><strong class="text-gray-900">Secure Infrastructure:</strong> All user and business data is stored on highly secure, enterprise-grade cloud infrastructure with robust firewall and access controls.</li>
+                        <li><strong class="text-gray-900">No Financial Data:</strong> <span class="text-gray-800 font-medium">FlowZint Connect does not collect, process, or store any personal financial information</span> (such as credit card numbers or personal bank details) on our servers.</li>
+                        <li><strong class="text-gray-900">Encryption:</strong> Data transmitted between your device and our servers is encrypted using industry-standard TLS/SSL protocols.</li>
+                    </ul>
+                </div>
+            </section>
 
-    <!-- WIDE FIXED ACTION BAR -->
-    <div id="action-bar" class="fixed bottom-0 left-0 right-0 action-bar-glass py-4 px-4 sm:px-8 lg:px-12 z-40 transform translate-y-full opacity-0 pointer-events-none transition-all duration-300 ease-in-out">
-        <div class="max-w-[1200px] mx-auto flex items-center justify-between">
+            <!-- Section 6: CRUCIAL REQUIREMENT -->
+            <section id="how-we-use" class="scroll-mt-32 mb-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center border border-gray-200">
+                        <i data-lucide="activity" class="w-4 h-4 text-brand-600"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900 m-0 tracking-tight">6. How We Use Information</h2>
+                </div>
+                <div class="glass-card rounded-2xl p-8 text-gray-600 leading-relaxed">
+                    <p class="mt-0">The information collected is utilized exclusively for the operational functionality of the FlowZint Connect platform.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                        <div class="p-5 rounded-xl bg-green-50 border border-green-200">
+                            <i data-lucide="check-circle-2" class="w-6 h-6 text-green-600 mb-3"></i>
+                            <h4 class="text-gray-900 text-sm font-semibold m-0 mb-2">What We Do</h4>
+                            <p class="text-sm m-0 text-gray-700">Facilitate CRM features, manage sales partner networks, automate business workflows, and verify lead locations.</p>
+                        </div>
+                        <div class="p-5 rounded-xl bg-red-50 border border-red-200">
+                            <i data-lucide="x-circle" class="w-6 h-6 text-red-600 mb-3"></i>
+                            <h4 class="text-gray-900 text-sm font-semibold m-0 mb-2">What We Don't Do</h4>
+                            <p class="text-sm m-0 text-gray-700"><strong class="text-red-800">User data is never sold, rented, or traded to third parties</strong> for marketing or any other external purposes under any circumstances.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7 -->
+            <section id="user-rights" class="scroll-mt-32 mb-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center border border-gray-200">
+                        <i data-lucide="user-cog" class="w-4 h-4 text-brand-600"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900 m-0 tracking-tight">7. User Rights & Data Control</h2>
+                </div>
+                <div class="glass-card rounded-2xl p-8 text-gray-600 leading-relaxed">
+                    <p class="mt-0">As an enterprise user, you and your organization retain control over your data. You have the right to:</p>
+                    <ul class="space-y-2 mt-4 marker:text-brand-500">
+                        <li>Request access to the personal data we hold about you.</li>
+                        <li>Request correction of inaccurate or incomplete data.</li>
+                        <li>Request deletion of your account and associated personal data, subject to corporate compliance and retention policies of your organization.</li>
+                    </ul>
+                    <p class="mt-4 text-sm bg-gray-50 p-4 rounded-lg border border-gray-200">To exercise these rights, please contact your organization's system administrator or our support team.</p>
+                </div>
+            </section>
+
+            <!-- Section 8 -->
+            <section id="third-party" class="scroll-mt-32 mb-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center border border-gray-200">
+                        <i data-lucide="network" class="w-4 h-4 text-brand-600"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900 m-0 tracking-tight">8. Third Party Services</h2>
+                </div>
+                <div class="glass-card rounded-2xl p-8 text-gray-600 leading-relaxed">
+                    <p class="mt-0">FlowZint Connect may utilize trusted third-party service providers solely to facilitate our infrastructure (e.g., cloud hosting providers, secure authentication services). These providers are bound by strict confidentiality agreements and are prohibited from using your data for any purpose other than providing services to FlowZint.</p>
+                </div>
+            </section>
+
+            <!-- Section 9 -->
+            <section id="cookies" class="scroll-mt-32 mb-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center border border-gray-200">
+                        <i data-lucide="cookie" class="w-4 h-4 text-brand-600"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900 m-0 tracking-tight">9. Cookies & Analytics</h2>
+                </div>
+                <div class="glass-card rounded-2xl p-8 text-gray-600 leading-relaxed">
+                    <p class="mt-0">While mobile applications do not use traditional web "cookies", FlowZint Connect utilizes equivalent local storage mechanisms and secure tokens to maintain your session and preferences securely.</p>
+                    <p>We may use anonymized, aggregated app analytics to monitor performance, crash reports, and general usage patterns to continuously improve the stability and features of the application.</p>
+                </div>
+            </section>
+
+            <!-- Section 10 -->
+            <section id="data-protection" class="scroll-mt-32 mb-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center border border-gray-200">
+                        <i data-lucide="shield" class="w-4 h-4 text-brand-600"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900 m-0 tracking-tight">10. Data Protection</h2>
+                </div>
+                <div class="glass-card rounded-2xl p-8 text-gray-600 leading-relaxed">
+                    <p class="mt-0">We maintain comprehensive administrative, technical, and physical safeguards designed to protect your personal information against accidental, unlawful, or unauthorized destruction, loss, alteration, access, disclosure, or use. Access to user data is strictly limited to authorized personnel who require it to perform their duties.</p>
+                </div>
+            </section>
+
+            <!-- Section 11 -->
+            <section id="contact" class="scroll-mt-32 mb-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center border border-gray-200">
+                        <i data-lucide="mail" class="w-4 h-4 text-brand-600"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900 m-0 tracking-tight">11. Contact Information</h2>
+                </div>
+                <div class="glass-card rounded-2xl p-8 text-gray-600 leading-relaxed">
+                    <p class="mt-0">If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:</p>
+                    <div class="flex flex-col sm:flex-row gap-6 mt-6">
+                        <div class="flex-1 p-6 rounded-xl bg-gray-50 border border-gray-200 hover:border-brand-300 transition-colors">
+                            <p class="text-xs text-gray-500 uppercase tracking-wider font-bold mb-2 m-0">Support</p>
+                            <a href="mailto:contact@flowzint.in" class="text-gray-900 hover:text-brand-600 transition-colors text-lg font-medium no-underline block">contact@flowzint.in</a>
+                        </div>
+                        <div class="flex-1 p-6 rounded-xl bg-gray-50 border border-gray-200 hover:border-brand-300 transition-colors">
+                            <p class="text-xs text-gray-500 uppercase tracking-wider font-bold mb-2 m-0">Business Inquiries</p>
+                            <a href="mailto:team@flowzint.in" class="text-gray-900 hover:text-brand-600 transition-colors text-lg font-medium no-underline block">team@flowzint.in</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12 -->
+            <section id="policy-updates" class="scroll-mt-32 mb-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center border border-gray-200">
+                        <i data-lucide="refresh-cw" class="w-4 h-4 text-brand-600"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900 m-0 tracking-tight">12. Policy Updates</h2>
+                </div>
+                <div class="glass-card rounded-2xl p-8 text-gray-600 leading-relaxed">
+                    <p class="mt-0">We may update this Privacy Policy periodically to reflect changes in our practices or relevant laws. We will notify users of any material changes via in-app announcements or via email to organizational administrators. Continued use of FlowZint Connect after such updates constitutes acceptance of the revised policy.</p>
+                </div>
+            </section>
+
+            <!-- Section 13 -->
+            <section id="legal" class="scroll-mt-32 mb-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center border border-gray-200">
+                        <i data-lucide="scale" class="w-4 h-4 text-brand-600"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900 m-0 tracking-tight">13. Legal Compliance</h2>
+                </div>
+                <div class="glass-card rounded-2xl p-8 text-gray-600 leading-relaxed">
+                    <p class="mt-0">This policy is designed to comply with applicable data protection regulations and the developer policies established by the Google Play Store and Apple App Store regarding user privacy, data safety, and permissions declarations.</p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 bg-white mt-12 py-12 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="flex items-center gap-2">
-                <i data-lucide="info" class="w-5 h-5 text-gray-500 dark:text-gray-400 hidden sm:block"></i>
-                <span class="text-[14px] font-medium text-gray-700 dark:text-gray-300">You have unsaved changes.</span>
+                <img src="logo.png" alt="FlowZint Connect" class="h-8 w-auto object-contain">
             </div>
-            <div class="flex items-center gap-3">
-                <button onclick="discardChanges()" class="px-5 py-2 text-[14px] font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 border border-transparent rounded-[4px] transition-colors">
-                    Discard
-                </button>
-                <button id="btn-save" onclick="saveChanges()" class="relative px-6 py-2 text-[14px] font-semibold text-white bg-brand-blue hover:bg-brand-blueHover disabled:bg-gray-300 dark:disabled:bg-gray-700 disabled:text-gray-500 rounded-[4px] transition-all flex items-center justify-center min-w-[90px] shadow-sm disabled:cursor-not-allowed">
-                    <span id="btn-save-text">Save</span>
-                    <i id="btn-save-loader" data-lucide="loader-2" class="w-4 h-4 animate-spin-slow hidden absolute"></i>
-                </button>
+            <div class="text-sm text-gray-500 font-medium">
+                &copy; 2026 FlowZint. All rights reserved.
+            </div>
+            <div class="flex gap-6">
+                <a href="https://flowzint.in" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">Website</a>
+                <a href="mailto:contact@flowzint.in" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">Support</a>
             </div>
         </div>
-    </div>
+    </footer>
 
-    <!-- SUCCESS TOAST NOTIFICATION -->
-    <div id="success-toast" class="fixed top-20 right-6 z-50 flex items-center gap-3 px-4 py-3 bg-white dark:bg-dark-surface border-l-4 border-green-500 shadow-lg rounded-r shadow-[0_4px_12px_rgba(0,0,0,0.1)] transition-all duration-400 transform translate-x-full opacity-0 pointer-events-none">
-        <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500"></i>
-        <span class="text-[14px] font-medium text-gray-800 dark:text-gray-100">Changes saved successfully</span>
-    </div>
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
 
-<script>
-    // Initialize Icons
-    lucide.createIcons();
+        // Scroll Spy functionality for Sidebar
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.toc-link');
 
-    // State Variables
-    let initialValue = '';
-    let isSaving = false;
-    const inputEl = document.getElementById('privacy-url');
-    const containerEl = document.getElementById('url-container');
-    const actionBar = document.getElementById('action-bar');
-    const btnSave = document.getElementById('btn-save');
-    const errorMsg = document.getElementById('error-msg');
-    const helperMsg = document.getElementById('helper-msg');
+            const observerOptions = {
+                root: null,
+                rootMargin: '-20% 0px -60% 0px', // Trigger slightly above middle
+                threshold: 0
+            };
 
-    // Theme Toggle Functionality
-    function toggleTheme() {
-        const html = document.documentElement;
-        if (html.classList.contains('dark')) {
-            html.classList.remove('dark');
-            localStorage.setItem('flowzint_theme', 'light');
-        } else {
-            html.classList.add('dark');
-            localStorage.setItem('flowzint_theme', 'dark');
-        }
-    }
+            const observerCallback = (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        
+                        // Remove active class from all links
+                        navLinks.forEach(link => {
+                            link.classList.remove('active', 'border-brand-600', 'text-gray-900', 'bg-brand-50');
+                            link.classList.add('border-transparent');
+                        });
 
-    // Input Handling & Real-time Validation
-    function handleInput() {
-        const val = inputEl.value;
-        
-        // Handle floating label state
-        if (val.length > 0) {
-            containerEl.classList.add('has-value');
-        } else {
-            containerEl.classList.remove('has-value');
-        }
+                        // Add active class to corresponding link
+                        const activeLink = document.querySelector(`.toc-link[href="#${id}"]`);
+                        if (activeLink) {
+                            activeLink.classList.add('active');
+                            activeLink.classList.remove('border-transparent');
+                        }
+                    }
+                });
+            };
 
-        // Validate URL format (simple regex for demo)
-        const isValid = val === '' || /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/.test(val);
-        const isDirty = val !== initialValue;
+            const observer = new IntersectionObserver(observerCallback, observerOptions);
 
-        if (!isValid && val !== '') {
-            containerEl.classList.add('error');
-            errorMsg.classList.remove('hidden');
-            errorMsg.classList.add('flex');
-            helperMsg.classList.add('hidden');
-            btnSave.disabled = true;
-        } else {
-            containerEl.classList.remove('error');
-            errorMsg.classList.add('hidden');
-            errorMsg.classList.remove('flex');
-            helperMsg.classList.remove('hidden');
-            btnSave.disabled = false;
-        }
-
-        // Show/Hide Action Bar based on changes
-        if (isDirty) {
-            actionBar.classList.remove('translate-y-full', 'opacity-0', 'pointer-events-none');
-        } else {
-            actionBar.classList.add('translate-y-full', 'opacity-0', 'pointer-events-none');
-        }
-    }
-
-    // Discard Unsaved Changes
-    function discardChanges() {
-        inputEl.value = initialValue;
-        handleInput();
-    }
-
-    // Save Changes (Simulated API)
-    function saveChanges() {
-        if (btnSave.disabled || isSaving) return;
-        
-        isSaving = true;
-        document.getElementById('btn-save-text').classList.add('opacity-0');
-        document.getElementById('btn-save-loader').classList.remove('hidden');
-        
-        // Simulate Network Request
-        setTimeout(() => {
-            isSaving = false;
-            initialValue = inputEl.value; // Reset baseline value
-            
-            // Reset Button UI
-            document.getElementById('btn-save-text').classList.remove('opacity-0');
-            document.getElementById('btn-save-loader').classList.add('hidden');
-            handleInput(); // Re-evaluates state, hides action bar
-            
-            // Show Success Toast
-            const toast = document.getElementById('success-toast');
-            toast.classList.remove('translate-x-full', 'opacity-0', 'pointer-events-none');
-            
-            // Hide Toast after 3 seconds
-            setTimeout(() => {
-                toast.classList.add('translate-x-full', 'opacity-0', 'pointer-events-none');
-            }, 3000);
-            
-        }, 1000);
-    }
-
-    // Initialize state on page load (in case browser auto-fills)
-    if (inputEl.value) containerEl.classList.add('has-value');
-</script>
-
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
 </body>
 </html>
