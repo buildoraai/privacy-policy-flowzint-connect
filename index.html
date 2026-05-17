@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Privacy Policy - FlowZint Console</title>
+    
+    <!-- Theme Check -->
+    <script>
+        if (localStorage.getItem('flowzint_theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind Configuration (Matching FlowZint Design Language) -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: { purple: '#673de6', blue: '#1a73e8', emerald: '#10b981', rose: '#f43f5e', amber: '#f59e0b' },
+                        dark: { bg: '#000000', surface: '#0a0a0c', card: '#121214', border: '#1f1f22', input: '#1a1a1d' }
+                    },
+                    animation: {
+                        'slide-up': 'slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'fade-in': 'fadeIn 0.3s ease-out forwards',
+                        'spin-slow': 'spin 2s linear infinite',
+                    },
+                    keyframes: {
+                        slideUp: { '0%': { transform: 'translateY(20px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
+                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * { -webkit-tap-highlight-color: transparent; outline: none; }
+        body { font-family: 'Inter', sans-serif; overflow: hidden; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Pro Inputs */
+        .floating-input:focus-within label { transform: translateY(-130%) scale(0.85); color: #1a73e8; }
+        .floating-input.has-value label { transform: translateY(-130%) scale(0.85); }
+        html.dark .floating-input:focus-within label { color: #60a5fa; }
+        
+        .floating-input input:focus { border-color: #1a73e8; box-shadow: 0 0 0 4px rgba(26, 115, 232, 0.1); }
+        .floating-input.error input { border-color: #f43f5e; box-shadow: 0 0 0 4px rgba(244, 63, 94, 0.1); }
+        .floating-input.error label { color: #f43f5e !important; }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-dark-bg text-slate-900 dark:text-white flex h-screen w-full transition-colors duration-300">
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 hidden lg:hidden opacity-0 transition-opacity duration-300" onclick="toggleSidebar()"></div>
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="fixed lg:static inset-y-0 left-0 z-50 w-[280px] bg-white dark:bg-dark-card border-r border-slate-200 dark:border-dark-border transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col shadow-2xl lg:shadow-none">
+        <!-- Logo Area -->
+        <div class="h-[72px] flex items-center justify-between px-6 border-b border-slate-100 dark:border-dark-border shrink-0">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-brand-blue flex items-center justify-center shrink-0 shadow-md">
+                    <i data-lucide="play" class="w-4 h-4 text-white fill-current"></i>
+                </div>
+                <span class="font-display font-black text-[18px] tracking-tight text-slate-800 dark:text-white">FlowZint Console</span>
+            </div>
+            <button onclick="toggleSidebar()" class="lg:hidden p-2 -mr-2 text-slate-500 hover:text-slate-900 dark:hover:text-white rounded-lg">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+
+        <!-- Nav Links -->
+        <nav class="flex-1 overflow-y-auto py-6 px-4 space-y-1 no-scrollbar">
+            <a href="#" class="flex items-center gap-3 px-4 py-3 text-[14px] font-semibold text-slate-600 dark:text-slate-400 rounded-[14px] hover:bg-slate-50 dark:hover:bg-dark-input transition-colors group">
+                <i data-lucide="layout-dashboard" class="w-5 h-5 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors"></i>
+                Dashboard
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 text-[14px] font-semibold text-slate-600 dark:text-slate-400 rounded-[14px] hover:bg-slate-50 dark:hover:bg-dark-input transition-colors group">
+                <i data-lucide="inbox" class="w-5 h-5 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors"></i>
+                Inbox
+            </a>
+            
+            <div class="pt-4 pb-2 px-4">
+                <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Policy & Store</p>
+            </div>
+            
+            <a href="#" class="flex items-center gap-3 px-4 py-3 text-[14px] font-semibold text-slate-600 dark:text-slate-400 rounded-[14px] hover:bg-slate-50 dark:hover:bg-dark-input transition-colors group">
+                <i data-lucide="store" class="w-5 h-5 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors"></i>
+                Store Presence
+            </a>
+            <!-- Active State -->
+            <a href="#" class="flex items-center gap-3 px-4 py-3 text-[14px] font-bold bg-blue-50 dark:bg-blue-900/20 text-brand-blue rounded-[14px] transition-colors relative">
+                <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-brand-blue rounded-r-full"></div>
+                <i data-lucide="shield-check" class="w-5 h-5 text-brand-blue"></i>
+                App Content
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 text-[14px] font-semibold text-slate-600 dark:text-slate-400 rounded-[14px] hover:bg-slate-50 dark:hover:bg-dark-input transition-colors group">
+                <i data-lucide="settings" class="w-5 h-5 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors"></i>
+                Settings
+            </a>
+        </nav>
+
+        <div class="p-4 border-t border-slate-100 dark:border-dark-border">
+            <button onclick="toggleTheme()" class="flex items-center gap-3 w-full px-4 py-3 text-[14px] font-semibold text-slate-600 dark:text-slate-400 rounded-[14px] hover:bg-slate-50 dark:hover:bg-dark-input transition-colors">
+                <i data-lucide="moon" class="w-5 h-5"></i> Toggle Theme
+            </button>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="flex-1 flex flex-col min-w-0 h-screen overflow-hidden bg-slate-50/50 dark:bg-dark-bg">
+        
+        <!-- TOP HEADER -->
+        <header class="h-[72px] bg-white dark:bg-dark-card border-b border-slate-200 dark:border-dark-border flex items-center justify-between px-4 lg:px-8 z-30 shrink-0">
+            <div class="flex items-center gap-4">
+                <button onclick="toggleSidebar()" class="lg:hidden p-2 -ml-2 rounded-lg text-slate-500 hover:bg-slate-100 dark:hover:bg-dark-input transition-colors">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+                
+                <!-- Search -->
+                <div class="hidden md:flex items-center bg-slate-100 dark:bg-dark-input rounded-full px-4 py-2 focus-within:ring-2 focus-within:ring-brand-blue focus-within:bg-white dark:focus-within:bg-dark-card transition-all w-72 lg:w-96 border border-transparent dark:border-dark-border">
+                    <i data-lucide="search" class="w-4 h-4 text-slate-400 shrink-0"></i>
+                    <input type="text" placeholder="Search console..." class="bg-transparent border-none focus:outline-none text-[14px] font-medium w-full ml-3 placeholder-slate-400 text-slate-800 dark:text-white"/>
+                </div>
+            </div>
+
+            <!-- Profile & Actions -->
+            <div class="flex items-center gap-3 sm:gap-5">
+                <button class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/20 text-brand-blue hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors relative">
+                    <i data-lucide="bell" class="w-5 h-5"></i>
+                    <span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-brand-rose border border-white dark:border-dark-card"></span>
+                </button>
+                
+                <div class="h-8 w-px bg-slate-200 dark:bg-dark-border hidden sm:block"></div>
+                
+                <button class="flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-dark-input p-1.5 pr-4 rounded-full transition-colors border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card shadow-sm">
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-emerald-400 to-emerald-600 flex items-center justify-center text-white shrink-0 shadow-inner">
+                        <span class="text-[13px] font-bold">F</span>
+                    </div>
+                    <span class="text-[14px] font-bold text-slate-700 dark:text-slate-200 hidden sm:block max-w-[140px] truncate">FlowZint Connect</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- SCROLLABLE PAGE CONTENT -->
+        <main class="flex-1 overflow-y-auto relative no-scrollbar scroll-smooth" id="main-scroll">
+            
+            <div class="max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12 pb-40">
+                
+                <!-- Breadcrumb & Title -->
+                <div class="mb-8 animate-slide-up" style="animation-delay: 0.1s;">
+                    <a href="#" class="inline-flex items-center text-[14px] font-bold text-slate-500 hover:text-brand-blue dark:hover:text-blue-400 transition-colors mb-4 group">
+                        <i data-lucide="arrow-left" class="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform"></i>
+                        Dashboard
+                    </a>
+                    <h1 class="text-[32px] sm:text-[40px] font-display font-black text-slate-900 dark:text-white tracking-tight leading-none">Privacy Policy</h1>
+                </div>
+
+                <!-- Main Content Card -->
+                <div class="bg-white dark:bg-dark-card rounded-[24px] shadow-sm border border-slate-200 dark:border-dark-border overflow-hidden animate-slide-up" style="animation-delay: 0.2s;">
+                    <div class="p-6 sm:p-10 lg:p-12">
+                        
+                        <!-- Policy Guidelines Text -->
+                        <div class="max-w-[800px] mb-12 text-[15px] sm:text-[16px] text-slate-600 dark:text-slate-300 leading-relaxed space-y-6 font-medium">
+                            <p>
+                                Add a privacy policy to your store listing to help provide transparency about how you treat sensitive user and device data. 
+                                <a href="#" class="text-brand-blue hover:text-blue-700 dark:hover:text-blue-300 font-bold inline-flex items-center gap-1 transition-colors">
+                                    Learn more <i data-lucide="external-link" class="w-3.5 h-3.5 mt-0.5"></i>
+                                </a>
+                            </p>
+                            
+                            <!-- Warning Callout -->
+                            <div class="p-5 bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-900/30 rounded-[16px] flex gap-4 items-start shadow-sm">
+                                <i data-lucide="alert-circle" class="w-5 h-5 text-brand-amber shrink-0 mt-0.5"></i>
+                                <p class="text-amber-900 dark:text-amber-200/80 text-[14px] sm:text-[15px] m-0">
+                                    You must add a privacy policy if your target audience includes children under 13. 
+                                    Check the <a href="#" class="text-brand-blue hover:underline font-bold">User Data policy</a> to avoid common violations.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Form Area -->
+                        <div class="max-w-[600px] relative">
+                            <!-- Floating Label Input -->
+                            <div id="url-container" class="floating-input relative group">
+                                <input 
+                                    type="text" 
+                                    id="privacy-url" 
+                                    oninput="handleInput()"
+                                    onfocus="this.parentElement.classList.add('focused')"
+                                    onblur="this.parentElement.classList.remove('focused')"
+                                    class="w-full px-5 pb-3 pt-7 bg-transparent border border-slate-300 dark:border-slate-700 rounded-[16px] text-[16px] font-semibold text-slate-900 dark:text-white transition-all duration-200"
+                                >
+                                <label for="privacy-url" class="absolute left-5 top-1/2 -translate-y-1/2 text-[16px] font-medium text-slate-500 dark:text-slate-400 pointer-events-none transition-all duration-200 origin-left">
+                                    Privacy policy URL
+                                </label>
+                            </div>
+                            
+                            <!-- Validation Message -->
+                            <div class="mt-3 ml-2 flex items-start gap-2 h-6">
+                                <div id="error-msg" class="hidden items-center gap-1.5 text-[13px] font-bold text-brand-rose animate-fade-in">
+                                    <i data-lucide="alert-circle" class="w-4 h-4"></i>
+                                    <span>Please enter a valid URL (e.g., https://example.com/privacy)</span>
+                                </div>
+                                <div id="helper-msg" class="text-[13px] font-medium text-slate-500 dark:text-slate-500">
+                                    Enter a URL, for example https://example.com/privacy
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enhanced Footer -->
+            <footer class="mt-auto border-t border-slate-200 dark:border-dark-border bg-white/80 dark:bg-dark-card/80 backdrop-blur-xl py-6 px-6 lg:px-10 sticky bottom-0 w-full z-20">
+                <div class="max-w-[1000px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="flex flex-wrap items-center justify-center md:justify-start gap-6 text-[13px] font-bold text-slate-500">
+                        <a href="#" class="hover:text-slate-900 dark:hover:text-white transition-colors">Product updates</a>
+                        <a href="#" class="hover:text-slate-900 dark:hover:text-white transition-colors">Status dashboard</a>
+                        <a href="#" class="hover:text-slate-900 dark:hover:text-white transition-colors">Help</a>
+                    </div>
+                    
+                    <div class="flex flex-wrap items-center justify-center md:justify-end gap-6 text-[13px] font-semibold text-slate-500">
+                        <span>© 2026 Google</span>
+                        <a href="#" class="hover:text-slate-900 dark:hover:text-white transition-colors">Privacy</a>
+                        <a href="#" class="hover:text-slate-900 dark:hover:text-white transition-colors">Developer Distribution Agreement</a>
+                        <a href="#" class="hover:text-slate-900 dark:hover:text-white transition-colors">Terms of Service</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+
+        <!-- FLOATING ACTION BAR (Unsaved Changes) -->
+        <div id="action-bar" class="fixed bottom-24 right-6 lg:right-12 z-40 flex items-center gap-4 p-4 bg-slate-900 dark:bg-white rounded-[20px] shadow-2xl transition-all duration-400 transform translate-y-16 opacity-0 pointer-events-none border border-slate-800 dark:border-slate-200">
+            <span class="text-[14px] font-bold text-slate-300 dark:text-slate-600 ml-2">Unsaved changes</span>
+            <div class="flex items-center gap-2">
+                <button onclick="discardChanges()" class="px-5 py-2.5 text-[14px] font-bold text-white dark:text-slate-800 hover:bg-slate-800 dark:hover:bg-slate-100 rounded-[12px] transition-colors">
+                    Discard
+                </button>
+                <button id="btn-save" onclick="saveChanges()" class="relative px-7 py-2.5 text-[14px] font-black text-slate-900 dark:text-white bg-white dark:bg-brand-blue rounded-[12px] transition-all flex items-center justify-center min-w-[100px] hover:scale-105 active:scale-95 shadow-md disabled:opacity-50 disabled:pointer-events-none">
+                    <span id="btn-save-text">Save</span>
+                    <i id="btn-save-loader" data-lucide="loader-2" class="w-5 h-5 animate-spin-slow hidden absolute"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- SUCCESS TOAST -->
+        <div id="success-toast" class="fixed bottom-24 right-6 lg:right-12 z-50 flex items-center gap-3 px-5 py-4 bg-emerald-50 dark:bg-emerald-900/90 border border-emerald-200 dark:border-emerald-700 rounded-[20px] shadow-xl transition-all duration-500 transform translate-y-16 opacity-0 pointer-events-none backdrop-blur-md">
+            <i data-lucide="check-circle-2" class="w-6 h-6 text-emerald-600 dark:text-emerald-400"></i>
+            <span class="text-[14px] font-bold text-emerald-900 dark:text-white">Changes saved successfully</span>
+        </div>
+
+    </div>
+
+<script>
+    // Initialize Icons
+    lucide.createIcons();
+
+    // State
+    let initialValue = '';
+    let isSaving = false;
+    const inputEl = document.getElementById('privacy-url');
+    const containerEl = document.getElementById('url-container');
+    const actionBar = document.getElementById('action-bar');
+    const btnSave = document.getElementById('btn-save');
+    const errorMsg = document.getElementById('error-msg');
+    const helperMsg = document.getElementById('helper-msg');
+
+    // Sidebar Toggle
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        
+        if (sidebar.classList.contains('-translate-x-full')) {
+            sidebar.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden', 'opacity-0');
+            setTimeout(() => overlay.classList.add('opacity-100'), 10);
+        } else {
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.remove('opacity-100');
+            setTimeout(() => overlay.classList.add('hidden', 'opacity-0'), 300);
+        }
+    }
+
+    // Theme Toggle
+    function toggleTheme() {
+        const html = document.documentElement;
+        if (html.classList.contains('dark')) {
+            html.classList.remove('dark');
+            localStorage.setItem('flowzint_theme', 'light');
+        } else {
+            html.classList.add('dark');
+            localStorage.setItem('flowzint_theme', 'dark');
+        }
+    }
+
+    // Input Handling & Validation
+    function handleInput() {
+        const val = inputEl.value;
+        
+        // Handle floating label state
+        if (val.length > 0) {
+            containerEl.classList.add('has-value');
+        } else {
+            containerEl.classList.remove('has-value');
+        }
+
+        // Validate URL
+        const isValid = val === '' || /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/.test(val);
+        const isDirty = val !== initialValue;
+
+        if (!isValid && val !== '') {
+            containerEl.classList.add('error');
+            errorMsg.classList.remove('hidden');
+            errorMsg.classList.add('flex');
+            helperMsg.classList.add('hidden');
+            btnSave.disabled = true;
+        } else {
+            containerEl.classList.remove('error');
+            errorMsg.classList.add('hidden');
+            errorMsg.classList.remove('flex');
+            helperMsg.classList.remove('hidden');
+            btnSave.disabled = false;
+        }
+
+        // Show/Hide Action Bar
+        if (isDirty) {
+            actionBar.classList.remove('translate-y-16', 'opacity-0', 'pointer-events-none');
+        } else {
+            actionBar.classList.add('translate-y-16', 'opacity-0', 'pointer-events-none');
+        }
+    }
+
+    // Discard Changes
+    function discardChanges() {
+        inputEl.value = initialValue;
+        handleInput();
+    }
+
+    // Save Changes
+    function saveChanges() {
+        if (btnSave.disabled || isSaving) return;
+        
+        isSaving = true;
+        document.getElementById('btn-save-text').classList.add('opacity-0');
+        document.getElementById('btn-save-loader').classList.remove('hidden');
+        
+        // Simulate API Call
+        setTimeout(() => {
+            isSaving = false;
+            initialValue = inputEl.value; // Reset baseline
+            
+            // Reset UI
+            document.getElementById('btn-save-text').classList.remove('opacity-0');
+            document.getElementById('btn-save-loader').classList.add('hidden');
+            handleInput(); // Hide action bar
+            
+            // Show Success Toast
+            const toast = document.getElementById('success-toast');
+            toast.classList.remove('translate-y-16', 'opacity-0', 'pointer-events-none');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-16', 'opacity-0', 'pointer-events-none');
+            }, 3000);
+            
+        }, 1200);
+    }
+
+    // Init Floating Label State on Load
+    if (inputEl.value) containerEl.classList.add('has-value');
+</script>
+
+</body>
+</html>
