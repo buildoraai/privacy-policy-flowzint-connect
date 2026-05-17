@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Privacy Policy - FlowZint Console</title>
+    <title>Privacy Policy - Developer Console</title>
     
     <!-- Theme Check -->
     <script>
@@ -20,9 +20,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     
-    <!-- Tailwind Configuration (Matching FlowZint Design Language) -->
+    <!-- Tailwind Configuration (Enterprise Wide Pro Look) -->
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -30,20 +29,17 @@
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        display: ['Plus Jakarta Sans', 'sans-serif'],
                     },
                     colors: {
-                        brand: { purple: '#673de6', blue: '#1a73e8', emerald: '#10b981', rose: '#f43f5e', amber: '#f59e0b' },
-                        dark: { bg: '#000000', surface: '#0a0a0c', card: '#121214', border: '#1f1f22', input: '#1a1a1d' }
+                        brand: { blue: '#0067b8', blueHover: '#005da6' }, // Microsoft-style blue
+                        dark: { bg: '#111111', surface: '#1e1e1e', border: '#333333' }
                     },
                     animation: {
-                        'slide-up': 'slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards',
                         'fade-in': 'fadeIn 0.3s ease-out forwards',
                         'spin-slow': 'spin 2s linear infinite',
                     },
                     keyframes: {
-                        slideUp: { '0%': { transform: 'translateY(20px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
-                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } }
+                        fadeIn: { '0%': { opacity: '0', transform: 'translateY(10px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }
                     }
                 }
             }
@@ -52,229 +48,166 @@
 
     <style>
         * { -webkit-tap-highlight-color: transparent; outline: none; }
-        body { font-family: 'Inter', sans-serif; overflow: hidden; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
         
-        /* Pro Inputs */
-        .floating-input:focus-within label { transform: translateY(-130%) scale(0.85); color: #1a73e8; }
-        .floating-input.has-value label { transform: translateY(-130%) scale(0.85); }
-        html.dark .floating-input:focus-within label { color: #60a5fa; }
+        /* Enterprise Floating Input */
+        .pro-input-container { position: relative; transition: all 0.2s ease; }
+        .pro-input {
+            width: 100%; padding: 1.25rem 1rem 0.5rem 1rem;
+            background: transparent; border: 1px solid #d1d5db; border-radius: 4px;
+            font-size: 15px; color: #111827; transition: all 0.2s;
+        }
+        html.dark .pro-input { border-color: #4b5563; color: #f9fafb; }
         
-        .floating-input input:focus { border-color: #1a73e8; box-shadow: 0 0 0 4px rgba(26, 115, 232, 0.1); }
-        .floating-input.error input { border-color: #f43f5e; box-shadow: 0 0 0 4px rgba(244, 63, 94, 0.1); }
-        .floating-input.error label { color: #f43f5e !important; }
+        .pro-label {
+            position: absolute; left: 1rem; top: 50%; transform: translateY(-50%);
+            font-size: 15px; color: #6b7280; pointer-events: none; transition: all 0.2s ease;
+        }
+        
+        /* Focus & Value States */
+        .pro-input-container:focus-within .pro-label,
+        .pro-input-container.has-value .pro-label {
+            top: 0.5rem; transform: translateY(0); font-size: 11px; font-weight: 600;
+        }
+        .pro-input-container:focus-within .pro-label { color: #0067b8; }
+        html.dark .pro-input-container:focus-within .pro-label { color: #60a5fa; }
+        
+        .pro-input:focus { border-color: #0067b8; box-shadow: inset 0 0 0 1px #0067b8; }
+        html.dark .pro-input:focus { border-color: #60a5fa; box-shadow: inset 0 0 0 1px #60a5fa; }
+        
+        /* Error States */
+        .pro-input-container.error .pro-input { border-color: #dc2626; box-shadow: inset 0 0 0 1px #dc2626; }
+        .pro-input-container.error .pro-label { color: #dc2626 !important; }
+        
+        .action-bar-glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid #e5e7eb;
+        }
+        html.dark .action-bar-glass {
+            background: rgba(30, 30, 30, 0.95);
+            border-top: 1px solid #333333;
+        }
     </style>
 </head>
-<body class="bg-slate-50 dark:bg-dark-bg text-slate-900 dark:text-white flex h-screen w-full transition-colors duration-300">
+<body class="bg-[#faf9f8] dark:bg-dark-bg text-gray-900 dark:text-gray-100 flex flex-col min-h-screen transition-colors duration-300">
 
-    <!-- Mobile Sidebar Overlay -->
-    <div id="sidebar-overlay" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 hidden lg:hidden opacity-0 transition-opacity duration-300" onclick="toggleSidebar()"></div>
-
-    <!-- SIDEBAR -->
-    <aside id="sidebar" class="fixed lg:static inset-y-0 left-0 z-50 w-[280px] bg-white dark:bg-dark-card border-r border-slate-200 dark:border-dark-border transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col shadow-2xl lg:shadow-none">
-        <!-- Logo Area -->
-        <div class="h-[72px] flex items-center justify-between px-6 border-b border-slate-100 dark:border-dark-border shrink-0">
-            <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-brand-blue flex items-center justify-center shrink-0 shadow-md">
-                    <i data-lucide="play" class="w-4 h-4 text-white fill-current"></i>
-                </div>
-                <span class="font-display font-black text-[18px] tracking-tight text-slate-800 dark:text-white">FlowZint Console</span>
-            </div>
-            <button onclick="toggleSidebar()" class="lg:hidden p-2 -mr-2 text-slate-500 hover:text-slate-900 dark:hover:text-white rounded-lg">
-                <i data-lucide="x" class="w-5 h-5"></i>
-            </button>
+    <!-- WIDE PRO HEADER -->
+    <header class="h-14 bg-white dark:bg-dark-surface border-b border-gray-200 dark:border-dark-border flex items-center justify-between px-4 lg:px-6 w-full sticky top-0 z-50">
+        <div class="flex items-center gap-4">
+            <!-- App Logo (Replaced text with logo.png) -->
+            <img src="logo.png" alt="Developer Console" class="h-6 w-auto object-contain onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0xMiAyTDExIDEwbS04IDRsMjEgMm0tOS04djE0Ii8+PC9zdmc+'" />
+            <div class="h-5 w-px bg-gray-300 dark:bg-gray-700 hidden sm:block"></div>
+            <span class="font-semibold text-[15px] hidden sm:block tracking-tight text-gray-800 dark:text-gray-200">Developer Console</span>
         </div>
 
-        <!-- Nav Links -->
-        <nav class="flex-1 overflow-y-auto py-6 px-4 space-y-1 no-scrollbar">
-            <a href="#" class="flex items-center gap-3 px-4 py-3 text-[14px] font-semibold text-slate-600 dark:text-slate-400 rounded-[14px] hover:bg-slate-50 dark:hover:bg-dark-input transition-colors group">
-                <i data-lucide="layout-dashboard" class="w-5 h-5 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors"></i>
+        <div class="flex items-center gap-2 sm:gap-4">
+            <button onclick="toggleTheme()" class="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 transition-colors" title="Toggle Theme">
+                <i data-lucide="moon" class="w-4 h-4"></i>
+            </button>
+            <button class="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 transition-colors" title="Notifications">
+                <i data-lucide="bell" class="w-4 h-4"></i>
+            </button>
+            
+            <div class="ml-2 flex items-center gap-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 p-1.5 rounded transition-colors">
+                <div class="w-7 h-7 rounded-full bg-brand-blue flex items-center justify-center text-white text-xs font-bold shadow-sm">
+                    FZ
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- WIDE MAIN CONTENT CONTAINER -->
+    <main class="flex-1 w-full max-w-[1200px] mx-auto px-4 sm:px-8 lg:px-12 py-8 lg:py-12 pb-32">
+        
+        <!-- Breadcrumb & Page Header -->
+        <div class="mb-10 animate-fade-in">
+            <a href="#" class="inline-flex items-center text-[13px] font-semibold text-gray-500 hover:text-brand-blue dark:hover:text-blue-400 transition-colors mb-3 group">
+                <i data-lucide="arrow-left" class="w-4 h-4 mr-1.5 group-hover:-translate-x-1 transition-transform"></i>
                 Dashboard
             </a>
-            <a href="#" class="flex items-center gap-3 px-4 py-3 text-[14px] font-semibold text-slate-600 dark:text-slate-400 rounded-[14px] hover:bg-slate-50 dark:hover:bg-dark-input transition-colors group">
-                <i data-lucide="inbox" class="w-5 h-5 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors"></i>
-                Inbox
-            </a>
-            
-            <div class="pt-4 pb-2 px-4">
-                <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Policy & Store</p>
-            </div>
-            
-            <a href="#" class="flex items-center gap-3 px-4 py-3 text-[14px] font-semibold text-slate-600 dark:text-slate-400 rounded-[14px] hover:bg-slate-50 dark:hover:bg-dark-input transition-colors group">
-                <i data-lucide="store" class="w-5 h-5 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors"></i>
-                Store Presence
-            </a>
-            <!-- Active State -->
-            <a href="#" class="flex items-center gap-3 px-4 py-3 text-[14px] font-bold bg-blue-50 dark:bg-blue-900/20 text-brand-blue rounded-[14px] transition-colors relative">
-                <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-brand-blue rounded-r-full"></div>
-                <i data-lucide="shield-check" class="w-5 h-5 text-brand-blue"></i>
-                App Content
-            </a>
-            <a href="#" class="flex items-center gap-3 px-4 py-3 text-[14px] font-semibold text-slate-600 dark:text-slate-400 rounded-[14px] hover:bg-slate-50 dark:hover:bg-dark-input transition-colors group">
-                <i data-lucide="settings" class="w-5 h-5 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors"></i>
-                Settings
-            </a>
-        </nav>
-
-        <div class="p-4 border-t border-slate-100 dark:border-dark-border">
-            <button onclick="toggleTheme()" class="flex items-center gap-3 w-full px-4 py-3 text-[14px] font-semibold text-slate-600 dark:text-slate-400 rounded-[14px] hover:bg-slate-50 dark:hover:bg-dark-input transition-colors">
-                <i data-lucide="moon" class="w-5 h-5"></i> Toggle Theme
-            </button>
+            <h1 class="text-3xl sm:text-4xl font-semibold text-gray-900 dark:text-white tracking-tight">Privacy Policy</h1>
         </div>
-    </aside>
 
-    <!-- MAIN CONTENT AREA -->
-    <div class="flex-1 flex flex-col min-w-0 h-screen overflow-hidden bg-slate-50/50 dark:bg-dark-bg">
-        
-        <!-- TOP HEADER -->
-        <header class="h-[72px] bg-white dark:bg-dark-card border-b border-slate-200 dark:border-dark-border flex items-center justify-between px-4 lg:px-8 z-30 shrink-0">
-            <div class="flex items-center gap-4">
-                <button onclick="toggleSidebar()" class="lg:hidden p-2 -ml-2 rounded-lg text-slate-500 hover:bg-slate-100 dark:hover:bg-dark-input transition-colors">
-                    <i data-lucide="menu" class="w-6 h-6"></i>
-                </button>
-                
-                <!-- Search -->
-                <div class="hidden md:flex items-center bg-slate-100 dark:bg-dark-input rounded-full px-4 py-2 focus-within:ring-2 focus-within:ring-brand-blue focus-within:bg-white dark:focus-within:bg-dark-card transition-all w-72 lg:w-96 border border-transparent dark:border-dark-border">
-                    <i data-lucide="search" class="w-4 h-4 text-slate-400 shrink-0"></i>
-                    <input type="text" placeholder="Search console..." class="bg-transparent border-none focus:outline-none text-[14px] font-medium w-full ml-3 placeholder-slate-400 text-slate-800 dark:text-white"/>
-                </div>
-            </div>
-
-            <!-- Profile & Actions -->
-            <div class="flex items-center gap-3 sm:gap-5">
-                <button class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/20 text-brand-blue hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors relative">
-                    <i data-lucide="bell" class="w-5 h-5"></i>
-                    <span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-brand-rose border border-white dark:border-dark-card"></span>
-                </button>
-                
-                <div class="h-8 w-px bg-slate-200 dark:bg-dark-border hidden sm:block"></div>
-                
-                <button class="flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-dark-input p-1.5 pr-4 rounded-full transition-colors border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card shadow-sm">
-                    <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-emerald-400 to-emerald-600 flex items-center justify-center text-white shrink-0 shadow-inner">
-                        <span class="text-[13px] font-bold">F</span>
-                    </div>
-                    <span class="text-[14px] font-bold text-slate-700 dark:text-slate-200 hidden sm:block max-w-[140px] truncate">FlowZint Connect</span>
-                </button>
-            </div>
-        </header>
-
-        <!-- SCROLLABLE PAGE CONTENT -->
-        <main class="flex-1 overflow-y-auto relative no-scrollbar scroll-smooth" id="main-scroll">
+        <!-- Enterprise Content Area -->
+        <div class="animate-fade-in" style="animation-delay: 0.1s;">
             
-            <div class="max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12 pb-40">
-                
-                <!-- Breadcrumb & Title -->
-                <div class="mb-8 animate-slide-up" style="animation-delay: 0.1s;">
-                    <a href="#" class="inline-flex items-center text-[14px] font-bold text-slate-500 hover:text-brand-blue dark:hover:text-blue-400 transition-colors mb-4 group">
-                        <i data-lucide="arrow-left" class="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform"></i>
-                        Dashboard
+            <!-- Policy Description Text -->
+            <div class="max-w-4xl text-[14px] text-gray-600 dark:text-gray-300 leading-relaxed space-y-6">
+                <p>
+                    Add a privacy policy to your store listing to help provide transparency about how you treat sensitive user and device data. 
+                    <a href="#" class="text-brand-blue hover:text-brand-blueHover dark:text-blue-400 dark:hover:text-blue-300 font-medium inline-flex items-center gap-1 transition-colors">
+                        Learn more <i data-lucide="external-link" class="w-3.5 h-3.5 mt-0.5"></i>
                     </a>
-                    <h1 class="text-[32px] sm:text-[40px] font-display font-black text-slate-900 dark:text-white tracking-tight leading-none">Privacy Policy</h1>
+                </p>
+                
+                <!-- Notice Callout -->
+                <p class="text-gray-900 dark:text-gray-100 font-medium">
+                    You must add a privacy policy if your target audience includes children under 13. 
+                    Check the <a href="#" class="text-brand-blue hover:underline">User Data policy</a> to avoid common violations.
+                </p>
+            </div>
+
+            <!-- Form Section -->
+            <div class="mt-10 max-w-2xl">
+                <!-- Floating Label Input Container -->
+                <div id="url-container" class="pro-input-container">
+                    <input 
+                        type="text" 
+                        id="privacy-url" 
+                        oninput="handleInput()"
+                        class="pro-input"
+                    >
+                    <label for="privacy-url" class="pro-label">
+                        Privacy policy URL
+                    </label>
                 </div>
-
-                <!-- Main Content Card -->
-                <div class="bg-white dark:bg-dark-card rounded-[24px] shadow-sm border border-slate-200 dark:border-dark-border overflow-hidden animate-slide-up" style="animation-delay: 0.2s;">
-                    <div class="p-6 sm:p-10 lg:p-12">
-                        
-                        <!-- Policy Guidelines Text -->
-                        <div class="max-w-[800px] mb-12 text-[15px] sm:text-[16px] text-slate-600 dark:text-slate-300 leading-relaxed space-y-6 font-medium">
-                            <p>
-                                Add a privacy policy to your store listing to help provide transparency about how you treat sensitive user and device data. 
-                                <a href="#" class="text-brand-blue hover:text-blue-700 dark:hover:text-blue-300 font-bold inline-flex items-center gap-1 transition-colors">
-                                    Learn more <i data-lucide="external-link" class="w-3.5 h-3.5 mt-0.5"></i>
-                                </a>
-                            </p>
-                            
-                            <!-- Warning Callout -->
-                            <div class="p-5 bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-900/30 rounded-[16px] flex gap-4 items-start shadow-sm">
-                                <i data-lucide="alert-circle" class="w-5 h-5 text-brand-amber shrink-0 mt-0.5"></i>
-                                <p class="text-amber-900 dark:text-amber-200/80 text-[14px] sm:text-[15px] m-0">
-                                    You must add a privacy policy if your target audience includes children under 13. 
-                                    Check the <a href="#" class="text-brand-blue hover:underline font-bold">User Data policy</a> to avoid common violations.
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Form Area -->
-                        <div class="max-w-[600px] relative">
-                            <!-- Floating Label Input -->
-                            <div id="url-container" class="floating-input relative group">
-                                <input 
-                                    type="text" 
-                                    id="privacy-url" 
-                                    oninput="handleInput()"
-                                    onfocus="this.parentElement.classList.add('focused')"
-                                    onblur="this.parentElement.classList.remove('focused')"
-                                    class="w-full px-5 pb-3 pt-7 bg-transparent border border-slate-300 dark:border-slate-700 rounded-[16px] text-[16px] font-semibold text-slate-900 dark:text-white transition-all duration-200"
-                                >
-                                <label for="privacy-url" class="absolute left-5 top-1/2 -translate-y-1/2 text-[16px] font-medium text-slate-500 dark:text-slate-400 pointer-events-none transition-all duration-200 origin-left">
-                                    Privacy policy URL
-                                </label>
-                            </div>
-                            
-                            <!-- Validation Message -->
-                            <div class="mt-3 ml-2 flex items-start gap-2 h-6">
-                                <div id="error-msg" class="hidden items-center gap-1.5 text-[13px] font-bold text-brand-rose animate-fade-in">
-                                    <i data-lucide="alert-circle" class="w-4 h-4"></i>
-                                    <span>Please enter a valid URL (e.g., https://example.com/privacy)</span>
-                                </div>
-                                <div id="helper-msg" class="text-[13px] font-medium text-slate-500 dark:text-slate-500">
-                                    Enter a URL, for example https://example.com/privacy
-                                </div>
-                            </div>
-                        </div>
-
+                
+                <!-- Validation / Helper Message -->
+                <div class="mt-2 ml-1 flex items-start gap-2 h-6">
+                    <div id="error-msg" class="hidden items-center gap-1.5 text-[12px] font-medium text-red-600 dark:text-red-400">
+                        <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i>
+                        <span>Please enter a valid URL (e.g., https://example.com/privacy)</span>
+                    </div>
+                    <div id="helper-msg" class="text-[12px] text-gray-500 dark:text-gray-400">
+                        Enter a URL, for example https://example.com/privacy
                     </div>
                 </div>
             </div>
 
-            <!-- Enhanced Footer -->
-            <footer class="mt-auto border-t border-slate-200 dark:border-dark-border bg-white/80 dark:bg-dark-card/80 backdrop-blur-xl py-6 px-6 lg:px-10 sticky bottom-0 w-full z-20">
-                <div class="max-w-[1000px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-                    <div class="flex flex-wrap items-center justify-center md:justify-start gap-6 text-[13px] font-bold text-slate-500">
-                        <a href="#" class="hover:text-slate-900 dark:hover:text-white transition-colors">Product updates</a>
-                        <a href="#" class="hover:text-slate-900 dark:hover:text-white transition-colors">Status dashboard</a>
-                        <a href="#" class="hover:text-slate-900 dark:hover:text-white transition-colors">Help</a>
-                    </div>
-                    
-                    <div class="flex flex-wrap items-center justify-center md:justify-end gap-6 text-[13px] font-semibold text-slate-500">
-                        <span>© 2026 Google</span>
-                        <a href="#" class="hover:text-slate-900 dark:hover:text-white transition-colors">Privacy</a>
-                        <a href="#" class="hover:text-slate-900 dark:hover:text-white transition-colors">Developer Distribution Agreement</a>
-                        <a href="#" class="hover:text-slate-900 dark:hover:text-white transition-colors">Terms of Service</a>
-                    </div>
-                </div>
-            </footer>
-        </main>
+        </div>
+    </main>
 
-        <!-- FLOATING ACTION BAR (Unsaved Changes) -->
-        <div id="action-bar" class="fixed bottom-24 right-6 lg:right-12 z-40 flex items-center gap-4 p-4 bg-slate-900 dark:bg-white rounded-[20px] shadow-2xl transition-all duration-400 transform translate-y-16 opacity-0 pointer-events-none border border-slate-800 dark:border-slate-200">
-            <span class="text-[14px] font-bold text-slate-300 dark:text-slate-600 ml-2">Unsaved changes</span>
+    <!-- WIDE FIXED ACTION BAR -->
+    <div id="action-bar" class="fixed bottom-0 left-0 right-0 action-bar-glass py-4 px-4 sm:px-8 lg:px-12 z-40 transform translate-y-full opacity-0 pointer-events-none transition-all duration-300 ease-in-out">
+        <div class="max-w-[1200px] mx-auto flex items-center justify-between">
             <div class="flex items-center gap-2">
-                <button onclick="discardChanges()" class="px-5 py-2.5 text-[14px] font-bold text-white dark:text-slate-800 hover:bg-slate-800 dark:hover:bg-slate-100 rounded-[12px] transition-colors">
+                <i data-lucide="info" class="w-5 h-5 text-gray-500 dark:text-gray-400 hidden sm:block"></i>
+                <span class="text-[14px] font-medium text-gray-700 dark:text-gray-300">You have unsaved changes.</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <button onclick="discardChanges()" class="px-5 py-2 text-[14px] font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 border border-transparent rounded-[4px] transition-colors">
                     Discard
                 </button>
-                <button id="btn-save" onclick="saveChanges()" class="relative px-7 py-2.5 text-[14px] font-black text-slate-900 dark:text-white bg-white dark:bg-brand-blue rounded-[12px] transition-all flex items-center justify-center min-w-[100px] hover:scale-105 active:scale-95 shadow-md disabled:opacity-50 disabled:pointer-events-none">
+                <button id="btn-save" onclick="saveChanges()" class="relative px-6 py-2 text-[14px] font-semibold text-white bg-brand-blue hover:bg-brand-blueHover disabled:bg-gray-300 dark:disabled:bg-gray-700 disabled:text-gray-500 rounded-[4px] transition-all flex items-center justify-center min-w-[90px] shadow-sm disabled:cursor-not-allowed">
                     <span id="btn-save-text">Save</span>
-                    <i id="btn-save-loader" data-lucide="loader-2" class="w-5 h-5 animate-spin-slow hidden absolute"></i>
+                    <i id="btn-save-loader" data-lucide="loader-2" class="w-4 h-4 animate-spin-slow hidden absolute"></i>
                 </button>
             </div>
         </div>
+    </div>
 
-        <!-- SUCCESS TOAST -->
-        <div id="success-toast" class="fixed bottom-24 right-6 lg:right-12 z-50 flex items-center gap-3 px-5 py-4 bg-emerald-50 dark:bg-emerald-900/90 border border-emerald-200 dark:border-emerald-700 rounded-[20px] shadow-xl transition-all duration-500 transform translate-y-16 opacity-0 pointer-events-none backdrop-blur-md">
-            <i data-lucide="check-circle-2" class="w-6 h-6 text-emerald-600 dark:text-emerald-400"></i>
-            <span class="text-[14px] font-bold text-emerald-900 dark:text-white">Changes saved successfully</span>
-        </div>
-
+    <!-- SUCCESS TOAST NOTIFICATION -->
+    <div id="success-toast" class="fixed top-20 right-6 z-50 flex items-center gap-3 px-4 py-3 bg-white dark:bg-dark-surface border-l-4 border-green-500 shadow-lg rounded-r shadow-[0_4px_12px_rgba(0,0,0,0.1)] transition-all duration-400 transform translate-x-full opacity-0 pointer-events-none">
+        <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500"></i>
+        <span class="text-[14px] font-medium text-gray-800 dark:text-gray-100">Changes saved successfully</span>
     </div>
 
 <script>
     // Initialize Icons
     lucide.createIcons();
 
-    // State
+    // State Variables
     let initialValue = '';
     let isSaving = false;
     const inputEl = document.getElementById('privacy-url');
@@ -284,23 +217,7 @@
     const errorMsg = document.getElementById('error-msg');
     const helperMsg = document.getElementById('helper-msg');
 
-    // Sidebar Toggle
-    function toggleSidebar() {
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('sidebar-overlay');
-        
-        if (sidebar.classList.contains('-translate-x-full')) {
-            sidebar.classList.remove('-translate-x-full');
-            overlay.classList.remove('hidden', 'opacity-0');
-            setTimeout(() => overlay.classList.add('opacity-100'), 10);
-        } else {
-            sidebar.classList.add('-translate-x-full');
-            overlay.classList.remove('opacity-100');
-            setTimeout(() => overlay.classList.add('hidden', 'opacity-0'), 300);
-        }
-    }
-
-    // Theme Toggle
+    // Theme Toggle Functionality
     function toggleTheme() {
         const html = document.documentElement;
         if (html.classList.contains('dark')) {
@@ -312,7 +229,7 @@
         }
     }
 
-    // Input Handling & Validation
+    // Input Handling & Real-time Validation
     function handleInput() {
         const val = inputEl.value;
         
@@ -323,7 +240,7 @@
             containerEl.classList.remove('has-value');
         }
 
-        // Validate URL
+        // Validate URL format (simple regex for demo)
         const isValid = val === '' || /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/.test(val);
         const isDirty = val !== initialValue;
 
@@ -341,21 +258,21 @@
             btnSave.disabled = false;
         }
 
-        // Show/Hide Action Bar
+        // Show/Hide Action Bar based on changes
         if (isDirty) {
-            actionBar.classList.remove('translate-y-16', 'opacity-0', 'pointer-events-none');
+            actionBar.classList.remove('translate-y-full', 'opacity-0', 'pointer-events-none');
         } else {
-            actionBar.classList.add('translate-y-16', 'opacity-0', 'pointer-events-none');
+            actionBar.classList.add('translate-y-full', 'opacity-0', 'pointer-events-none');
         }
     }
 
-    // Discard Changes
+    // Discard Unsaved Changes
     function discardChanges() {
         inputEl.value = initialValue;
         handleInput();
     }
 
-    // Save Changes
+    // Save Changes (Simulated API)
     function saveChanges() {
         if (btnSave.disabled || isSaving) return;
         
@@ -363,28 +280,29 @@
         document.getElementById('btn-save-text').classList.add('opacity-0');
         document.getElementById('btn-save-loader').classList.remove('hidden');
         
-        // Simulate API Call
+        // Simulate Network Request
         setTimeout(() => {
             isSaving = false;
-            initialValue = inputEl.value; // Reset baseline
+            initialValue = inputEl.value; // Reset baseline value
             
-            // Reset UI
+            // Reset Button UI
             document.getElementById('btn-save-text').classList.remove('opacity-0');
             document.getElementById('btn-save-loader').classList.add('hidden');
-            handleInput(); // Hide action bar
+            handleInput(); // Re-evaluates state, hides action bar
             
             // Show Success Toast
             const toast = document.getElementById('success-toast');
-            toast.classList.remove('translate-y-16', 'opacity-0', 'pointer-events-none');
+            toast.classList.remove('translate-x-full', 'opacity-0', 'pointer-events-none');
             
+            // Hide Toast after 3 seconds
             setTimeout(() => {
-                toast.classList.add('translate-y-16', 'opacity-0', 'pointer-events-none');
+                toast.classList.add('translate-x-full', 'opacity-0', 'pointer-events-none');
             }, 3000);
             
-        }, 1200);
+        }, 1000);
     }
 
-    // Init Floating Label State on Load
+    // Initialize state on page load (in case browser auto-fills)
     if (inputEl.value) containerEl.classList.add('has-value');
 </script>
 
